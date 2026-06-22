@@ -21,8 +21,7 @@ const COLORS = {
   cream: "#F4EFE3",
   paper: "#FBF8F0",
   ink: "#241A12",
-  inkDeep: "#2b1f16",
-  brass: "#C9A24B",
+    brass: "#C9A24B",
   mute: "#8A8067",
 };
 
@@ -302,6 +301,7 @@ function Checkout({ items, onClose, onBack }) {
 
 export default function App() {
   const [cart, setCart] = useState([]);
+  const [scrolled, setScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [optionsFor, setOptionsFor] = useState(null);
   const [checkout, setCheckout] = useState(false);
@@ -315,6 +315,12 @@ export default function App() {
       l.href = "https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@500;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Courier+Prime:wght@400;700&display=swap";
       document.head.appendChild(l);
     }
+  }, []);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const addToCart = (item) => {
@@ -333,20 +339,24 @@ export default function App() {
     <div style={{ background: COLORS.cream, minHeight: "100vh", color: COLORS.ink, fontFamily: FONTS.body }}>
       <style>{`
         @media (max-width: 720px) { .checkout-grid { grid-template-columns: 1fr !important; } .hero-title { font-size: 54px !important; } }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .nav-visible { animation: slideDown 0.28s cubic-bezier(0.4,0,0.2,1) forwards; }
         button:hover { filter: brightness(1.05); }
         button:active { transform: scale(0.97); }
         *:focus-visible { outline: 2px solid ${COLORS.brass}; outline-offset: 2px; }
       `}</style>
 
-      <header style={{ background: COLORS.red, position: "sticky", top: 0, zIndex: 40, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 24px", boxShadow: "0 4px 18px rgba(0,0,0,0.2)" }}>
-        <Wordmark height={40} />
-        <button onClick={() => setCartOpen(true)} style={{ ...btnStyle("ghost"), display: "flex", alignItems: "center", gap: 8, padding: "8px 16px" }}>
-          Bag {count > 0 && <span style={{ background: COLORS.cream, color: COLORS.red, borderRadius: 999, padding: "1px 8px", fontFamily: FONTS.display, fontSize: 13, fontWeight: 600 }}>{count}</span>}
-        </button>
-      </header>
+      {scrolled && (
+        <header className="nav-visible" style={{ background: COLORS.red, position: "fixed", top: 0, left: 0, right: 0, zIndex: 40, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 24px", boxShadow: "0 4px 18px rgba(0,0,0,0.2)" }}>
+          <IconMark size={38} white />
+          <button onClick={() => setCartOpen(true)} style={{ ...btnStyle("ghost"), display: "flex", alignItems: "center", gap: 8, padding: "7px 16px" }}>
+            Bag {count > 0 && <span style={{ background: COLORS.cream, color: COLORS.red, borderRadius: 999, padding: "1px 8px", fontFamily: FONTS.display, fontSize: 13, fontWeight: 600 }}>{count}</span>}
+          </button>
+        </header>
+      )}
 
-      <section style={{ background: `linear-gradient(160deg, ${COLORS.inkDeep} 0%, ${COLORS.ink} 55%)`, color: COLORS.cream, padding: "64px 24px 80px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}><IconMark size={72} white /></div>
+      <section style={{ background: `linear-gradient(160deg, ${COLORS.ink} 0%, ${COLORS.ink} 80%)`, color: COLORS.cream, padding: "40px 24px 80px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}><Wordmark height={52} /></div>
         <p style={{ fontFamily: FONTS.mono, letterSpacing: 3, fontSize: 12, opacity: 0.85, margin: 0 }}>SMALL BATCH · ROASTED BY HAND</p>
         <h1 className="hero-title" style={{ fontFamily: FONTS.display, fontWeight: 700, fontSize: 74, lineHeight: 1.02, margin: "14px auto 0", maxWidth: 720, letterSpacing: -2 }}>The cup worth the climb.</h1>
         <p style={{ fontFamily: FONTS.hand, fontSize: 30, color: COLORS.brass, margin: "10px 0 0" }}>Sube a La Loma.</p>
@@ -354,7 +364,7 @@ export default function App() {
         <button onClick={() => document.getElementById("shop").scrollIntoView({ behavior: "smooth" })} style={{ ...btnStyle(), marginTop: 28, padding: "13px 30px", fontSize: 17 }}>Buy a bag</button>
       </section>
 
-      <section id="shop" style={{ background: `linear-gradient(160deg, ${COLORS.inkDeep} 0%, ${COLORS.ink} 55%)`, padding: "90px 24px 110px" }}>
+      <section id="shop" style={{ background: `linear-gradient(160deg, ${COLORS.ink} 0%, ${COLORS.ink} 80%)`, padding: "90px 24px 110px" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 40, flexWrap: "wrap" }}>
             <h2 style={{ fontFamily: FONTS.display, fontWeight: 600, fontSize: 40, margin: 0, color: COLORS.cream }}>The coffees</h2>
