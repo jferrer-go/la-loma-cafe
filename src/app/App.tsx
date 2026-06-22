@@ -357,10 +357,10 @@ export default function App() {
 
       <section style={{ background: `linear-gradient(160deg, ${COLORS.ink} 0%, ${COLORS.ink} 80%)`, color: COLORS.cream, padding: "40px 24px 80px", textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}><Wordmark height={52} /></div>
-        <p style={{ fontFamily: FONTS.mono, letterSpacing: 3, fontSize: 12, opacity: 0.85, margin: 0 }}>SMALL BATCH · ROASTED BY HAND</p>
+        <p style={{ fontFamily: FONTS.mono, letterSpacing: 3, fontSize: 12, opacity: 0.85, margin: 0 }}>FRESHLY ROASTED IN SMALL BATCHES</p>
         <h1 className="hero-title" style={{ fontFamily: FONTS.display, fontWeight: 700, fontSize: 74, lineHeight: 1.02, margin: "14px auto 0", maxWidth: 720, letterSpacing: -2 }}>Specialty Coffee, Made Familiar</h1>
         <p style={{ fontFamily: FONTS.hand, fontSize: 30, color: COLORS.brass, margin: "10px 0 0" }}>Sube a La Loma.</p>
-        <p style={{ fontFamily: FONTS.body, fontSize: 17, maxWidth: 520, margin: "20px auto 0", opacity: 0.92, lineHeight: 1.55 }}>Café cubano, elevated. The strength and sweetness you grew up loving — built from specialty beans, roasted dark, the way it was always meant to be done.</p>
+        <p style={{ fontFamily: FONTS.body, fontSize: 17, maxWidth: 520, margin: "20px auto 0", opacity: 0.92, lineHeight: 1.55 }}>An elevated take on the coffee you already drink — fresher, better-sourced, and roasted for a richer everyday cup.</p>
         <button onClick={() => document.getElementById("shop").scrollIntoView({ behavior: "smooth" })} style={{ ...btnStyle(), marginTop: 28, padding: "13px 30px", fontSize: 17 }}>Buy a bag</button>
       </section>
 
